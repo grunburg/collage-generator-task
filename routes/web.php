@@ -16,6 +16,6 @@ use Inertia\Inertia;
 */
 
 Route::controller(CollageController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::post('/', 'store');
+    Route::get('/', 'index')->name('collage.index');
+    Route::post('/', 'store')->name('collage.store');;
 });

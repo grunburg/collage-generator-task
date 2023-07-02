@@ -21,7 +21,7 @@ const onSelect = () => {
 
 <template>
     <div
-        class="relative aspect-[2/3] overflow-hidden bg-zinc-100 rounded-md transition-all border border-zinc-100"
+        class="relative aspect-[2/3] overflow-hidden bg-zinc-100 rounded-md transition-all border border-zinc-300"
         :class="{ 'scale-90 ring-4 ring-blue-600/30 border-blue-600': isSelected }"
         role="button"
         @click="onSelect()"

@@ -8,7 +8,7 @@ import DefaultButton from '@/Components/DefaultButton.vue'
 import EraserIcon from '@/Components/Icons/EraserIcon.vue'
 import PosterContainer from '@/Components/PosterContainer.vue'
 import { useState } from '@/Composables/state.js'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useForm } from '@inertiajs/inertia-vue3'
 import CollageContainer from '@/Components/CollageContainer.vue'
 
@@ -27,6 +27,17 @@ const { ids, reset } = useState()
 
 const form = useForm({ posters: computed(() => Array.from(ids.value)) });
 
+const state = ref('default')
+
+const onGenerate = () => {
+    state.value = 'loading'
+
+    form.post('/', {
+        onFinish: () => state.value = 'default',
+        preserveScroll: true,
+    });
+};
+
 const counter = computed(() => {
     if (!ids.value.size) {
         return ''
@@ -38,12 +49,6 @@ const counter = computed(() => {
 })
 
 const onClear = () => { reset() }
-
-const onGenerate = () => {
-    form.post('/', {
-        //
-    });
-};
 </script>
 
 <template>
@@ -68,11 +73,15 @@ const onGenerate = () => {
                     <p class="text-xs text-zinc-500">{{ counter }}</p>
                     <div class="flex items-center  space-x-2">
                         <DefaultButton content="Clear" @on-click="onClear" :disabled="!ids.size">
-                            <template #icon>
-                                <EraserIcon class="w-4 h-4 text-zinc-500" />
+                            <template #icon="{ classes }">
+                                <EraserIcon :class="classes" />
                             </template>
                         </DefaultButton>
-                        <GenerateButton state="default" :disabled="!ids.size" @on-generate="onGenerate" />
+                        <GenerateButton
+                            :state="state"
+                            :disabled="!ids.size"
+                            @on-generate="onGenerate"
+                        />
                     </div>
                 </div>
             </template>

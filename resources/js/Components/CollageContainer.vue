@@ -18,7 +18,7 @@ defineProps({
         </template>
         <template #content="{ classes }">
             <p :class="classes">
-                No collages found. Select some posters and generate some.
+                No collages found. Select available posters and generate some.
             </p>
         </template>
     </Banner>

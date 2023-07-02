@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PosterResource extends JsonResource
+class CollageResource extends JsonResource
 {
     /**
      * @return array<string, mixed>
@@ -14,8 +14,7 @@ class PosterResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'path' => asset("/assets/images/posters/{$this->path}"),
+            'path' => asset("/storage/collages/{$this->path}"),
         ];
     }
 }

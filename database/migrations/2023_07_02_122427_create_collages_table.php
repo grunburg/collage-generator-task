@@ -8,9 +8,8 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('posters', function (Blueprint $table) {
+        Schema::create('collages', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('path')->unique();
             $table->timestamps();
         });
@@ -18,6 +17,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('posters');
+        Schema::dropIfExists('collages');
     }
 };
