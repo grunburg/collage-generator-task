@@ -2,21 +2,34 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Modules\Poster\Models\Poster;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * @type array<string, string>
      */
+    private const POSTERS = [
+        'Ezeriņš' => '1.png',
+        'Juveliera Jubileja' => '2.png',
+        'Oligarhs' => '3.png',
+        'Bērnu Izklaides Un Saldumu Izstāde' => '4.png',
+        'Aukle' => '5.png',
+        'Organismi' => '6.png',
+        'Čurļonis Un Džezs' => '7.png',
+        'Dāvanu Karte' => '8.png',
+        'Ārsts' => '9.png',
+        'Latvijas Radio Koris' => '10.png',
+    ];
+
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        foreach (self::POSTERS as $name => $path) {
+            Poster::factory()->create([
+                'name' => $name,
+                'path' => $path,
+            ]);
+        }
     }
 }

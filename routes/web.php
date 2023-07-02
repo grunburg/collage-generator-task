@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CollageController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -14,9 +15,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'laravel' => \Illuminate\Foundation\Application::VERSION,
-        'php' => PHP_VERSION,
-    ]);
+Route::controller(CollageController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::post('/', 'store');
 });
