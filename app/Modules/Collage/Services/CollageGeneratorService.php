@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Modules\Collage\Services;
 
-use Intervention\Image\Facades\Image as Facade;
+use Intervention\Image\Facades\Image as ImageFacade;
 use Intervention\Image\Image;
 
 class CollageGeneratorService
@@ -13,15 +15,15 @@ class CollageGeneratorService
 
     public function create(array $paths, array $size, int $space = 10): Image
     {
-        [$width, $height] = $size;
+        [$imageWidth, $imageHeight] = $size;
 
-        $canvas = $this->canvas($paths, $width, $height, $space);
+        $canvas = $this->canvas($paths, $size, $space);
 
         foreach ($paths as $index => $path) {
-            $image = Facade::make($path)->resize($width, $height);
+            $image = ImageFacade::make($path)->resize($imageWidth, $imageHeight);
 
-            $x = $index % self::COLUMN_COUNT * ($width + $space);
-            $y = floor($index / self::COLUMN_COUNT) * ($height + $space);
+            $x = $index % self::COLUMN_COUNT * ($imageWidth + $space);
+            $y = floor($index / self::COLUMN_COUNT) * ($imageHeight + $space);
 
             $canvas->insert($image, 'top-left', $x, $y);
 
@@ -32,17 +34,14 @@ class CollageGeneratorService
         return $canvas->encode('png');
     }
 
-    /**
-     * Create a new canvas based on image parameters.
-     */
-    private function canvas(array $paths, int $width, int $height, int $space): Image
+    private function canvas(array $paths, array $size, int $space): Image
     {
-        $rows = ceil(count($paths) / self::COLUMN_COUNT);
+        [$imageWidth, $imageHeight] = $size;
+        $rowCount = ceil(count($paths) / self::COLUMN_COUNT);
 
-        return Facade::canvas(
-            $width * self::COLUMN_COUNT + ($space - 1) * $space,
-            $height * $rows + ($rows - 1) * $space,
-            self::COLOR_TRANSPARENT
-        );
+        $canvasWidth = $imageWidth * self::COLUMN_COUNT + ($space - 1) * $space;
+        $canvasHeight = $imageHeight * $rowCount + ($rowCount - 1) * $space;
+
+        return ImageFacade::canvas($canvasWidth, $canvasHeight, self::COLOR_TRANSPARENT);
     }
 }
