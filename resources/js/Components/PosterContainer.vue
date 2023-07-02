@@ -24,7 +24,7 @@ const onSelect = (id) => { toggle(id) }
         <template #content="{ classes }">
             <p :class="classes">
                 Looks like you forgot to seed the posters.
-                <code class="rounded px-1 py-0.5 text-xs bg-blue-200">./vendor/bin/sail db:seed</code>
+                <code class="rounded px-1 py-0.5 text-xs bg-blue-200">./vendor/bin/sail artisan db:seed</code>
             </p>
         </template>
     </Banner>

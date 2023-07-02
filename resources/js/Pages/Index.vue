@@ -24,16 +24,18 @@ defineProps({
 })
 
 const { ids, reset } = useState()
-
 const form = useForm({ posters: computed(() => Array.from(ids.value)) });
 
-const state = ref('default')
+const generateButtonState = ref('default')
 
 const onGenerate = () => {
-    state.value = 'loading'
+    generateButtonState.value = 'loading'
 
     form.post('/', {
-        onFinish: () => state.value = 'default',
+        onFinish: () => {
+            generateButtonState.value = 'default'
+            reset()
+        },
         preserveScroll: true,
     });
 };
@@ -57,7 +59,7 @@ const onClear = () => { reset() }
             <template #body>
                 <Section title="Posters">
                     <template #icon>
-                        <ImageIcon class="w-4 h-4 text-emerald-600" />
+                        <ImageIcon class="w-4 h-4 text-blue-600" />
                     </template>
                     <PosterContainer :posters="posters" />
                 </Section>
@@ -78,7 +80,7 @@ const onClear = () => { reset() }
                             </template>
                         </DefaultButton>
                         <GenerateButton
-                            :state="state"
+                            :state="generateButtonState"
                             :disabled="!ids.size"
                             @on-generate="onGenerate"
                         />
