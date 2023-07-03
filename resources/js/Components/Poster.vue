@@ -26,7 +26,7 @@ const onSelect = () => {
         role="button"
         @click="onSelect()"
     >
-        <img draggable="false" class="object-cover w-full h-full" :src="poster?.path" :alt="poster?.name">
+        <img draggable="false" class="object-cover w-full h-full" :src="poster?.src" :alt="poster?.name">
         <div
             v-if="isSelected"
             class="m-2 absolute top-0 right-0 flex items-center justify-center w-6 h-6 ring ring-blue-600/30

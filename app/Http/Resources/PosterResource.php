@@ -17,7 +17,7 @@ class PosterResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'path' => asset("/assets/images/posters/{$this->path}"),
+            'src' => asset($this->path),
         ];
     }
 }

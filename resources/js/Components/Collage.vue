@@ -10,7 +10,7 @@ const props = defineProps({
 })
 
 const onView = () => {
-    window.location.href = props.collage?.path
+    window.location.href = props.collage?.src
 }
 </script>
 
@@ -26,8 +26,8 @@ const onView = () => {
         <img
             class="object-cover w-full h-full"
             draggable="false"
-            :src="collage?.path"
-            :alt="collage?.path"
+            :src="collage?.src"
+            :alt="collage?.src"
         >
     </div>
 </template>

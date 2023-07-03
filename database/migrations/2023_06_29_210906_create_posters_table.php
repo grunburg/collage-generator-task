@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('posters', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('path')->unique();
+            $table->string('file_name')->unique();
             $table->timestamps();
         });
     }

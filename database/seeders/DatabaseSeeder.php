@@ -13,24 +13,24 @@ class DatabaseSeeder extends Seeder
      * @type array<string, string>
      */
     private const POSTERS = [
-        'Ezeriņš' => '1.png',
+        'Ezerins' => '1.png',
         'Juveliera Jubileja' => '2.png',
         'Oligarhs' => '3.png',
-        'Bērnu Izklaides Un Saldumu Izstāde' => '4.png',
+        'Bernu Izklaides Un Saldumu Izstade' => '4.png',
         'Aukle' => '5.png',
         'Organismi' => '6.png',
-        'Čurļonis Un Džezs' => '7.png',
-        'Dāvanu Karte' => '8.png',
-        'Ārsts' => '9.png',
+        'Curļonis Un Dzezs' => '7.png',
+        'Davanu Karte' => '8.png',
+        'Arsts' => '9.png',
         'Latvijas Radio Koris' => '10.png',
     ];
 
     public function run(): void
     {
-        foreach (self::POSTERS as $name => $path) {
+        foreach (self::POSTERS as $key => $value) {
             Poster::factory()->create([
-                'name' => $name,
-                'path' => $path,
+                'name' => $key,
+                'file_name' => $value,
             ]);
         }
     }

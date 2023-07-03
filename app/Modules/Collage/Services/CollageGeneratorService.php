@@ -7,11 +7,11 @@ namespace App\Modules\Collage\Services;
 use Intervention\Image\Facades\Image as ImageFacade;
 use Intervention\Image\Image;
 
-class CollageGeneratorService
+readonly class CollageGeneratorService
 {
     private const COLUMN_COUNT = 5;
-
     private const COLOR_TRANSPARENT = [0, 0, 0, 0];
+    private const FILE_FORMAT = 'png';
 
     public function create(array $paths, array $size, int $space = 10): Image
     {
@@ -31,7 +31,7 @@ class CollageGeneratorService
             $image->destroy();
         }
 
-        return $canvas->encode('png');
+        return $canvas->encode(self::FILE_FORMAT);
     }
 
     private function canvas(array $paths, array $size, int $space): Image
@@ -39,7 +39,7 @@ class CollageGeneratorService
         [$imageWidth, $imageHeight] = $size;
         $rowCount = ceil(count($paths) / self::COLUMN_COUNT);
 
-        $canvasWidth = $imageWidth * self::COLUMN_COUNT + ($space - 1) * $space;
+        $canvasWidth = $imageWidth * self::COLUMN_COUNT + (self::COLUMN_COUNT - 1) * $space;
         $canvasHeight = $imageHeight * $rowCount + ($rowCount - 1) * $space;
 
         return ImageFacade::canvas($canvasWidth, $canvasHeight, self::COLOR_TRANSPARENT);

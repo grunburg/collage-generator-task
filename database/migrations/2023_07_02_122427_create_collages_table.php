@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('collages', function (Blueprint $table) {
             $table->id();
-            $table->string('path')->unique();
+            $table->string('file_name')->unique();
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@ class CollageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'path' => asset("/storage/collages/{$this->path}"),
+            'src' => asset($this->path),
         ];
     }
 }

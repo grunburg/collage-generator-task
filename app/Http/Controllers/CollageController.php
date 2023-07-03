@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCollageRequest;
-use App\Http\Resources\CollageResource;
 use App\Http\Resources\PosterResource;
-use App\Modules\Collage\Models\Collage;
-use App\Modules\Collage\Services\CollageGeneratorService;
-use App\Modules\Poster\Models\Poster;
+use App\Modules\Collage\Exceptions\CollageException;
+use App\Modules\Collage\Repositories\CollageRepository;
+use App\Modules\Collage\Services\CollageService;
+use App\Modules\Poster\Repositories\PosterRepository;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -19,8 +19,11 @@ class CollageController extends Controller
 {
     public function index(): Response
     {
-        $posters = PosterResource::collection(Poster::all());
-        $collages = CollageResource::collection(Collage::all());
+        $posters = app(PosterRepository::class)->getAll();
+        $posters = PosterResource::collection($posters);
+
+        $collages = app(CollageRepository::class)->getAll();
+        $collages = PosterResource::collection($collages);
 
         return Inertia::render('Index', [
             'posters' => $posters,
@@ -28,25 +31,14 @@ class CollageController extends Controller
         ]);
     }
 
-    public function store(StoreCollageRequest $request)
+    public function store(StoreCollageRequest $request): RedirectResponse
     {
-        $posters = Poster::findMany($request->get('posters'));
+        try {
+            app(CollageService::class)->generate($request->validated());
+        } catch (CollageException $e) {
+            return Redirect::route('collage.index')->with(['message' => $e->getMessage()]);
+        }
 
-        $posters = $posters->sort(function ($a, $b) {
-            return strcoll($a->name, $b->name);
-        });
-
-        $images = $posters->map(function (Poster $poster) {
-            return "assets/images/posters/{$poster->path}";
-        });
-
-        $name = uniqid() . '.png';
-
-        $collage = app(CollageGeneratorService::class)->create($images->toArray(), [362, 544]);
-        Storage::drive('public')->put("collages/{$name}", $collage);
-
-        Collage::create(['path' => $name]);
-
-        Redirect::route('collage.index');
+        return Redirect::route('collage.index');
     }
 }
