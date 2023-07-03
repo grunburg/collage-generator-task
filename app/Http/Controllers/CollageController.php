@@ -36,7 +36,7 @@ class CollageController extends Controller
         try {
             app(CollageService::class)->generate($request->validated());
         } catch (CollageException $e) {
-            return Redirect::route('collage.index')->with(['message' => $e->getMessage()]);
+            return Redirect::route('collage.index')->with(['error' => $e->getMessage()]);
         }
 
         return Redirect::route('collage.index');

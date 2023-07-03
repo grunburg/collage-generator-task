@@ -11,6 +11,7 @@ import { useState } from '@/Composables/state.js'
 import { computed, ref } from 'vue'
 import { useForm } from '@inertiajs/inertia-vue3'
 import CollageContainer from '@/Components/CollageContainer.vue'
+import { useToast } from 'vue-toastification'
 
 defineProps({
     posters: {
@@ -25,6 +26,7 @@ defineProps({
 
 const { ids, reset } = useState()
 const form = useForm({ posters: computed(() => Array.from(ids.value)) });
+const toast = useToast()
 
 const generateButtonState = ref('default')
 
@@ -35,6 +37,7 @@ const onGenerate = () => {
         onFinish: () => {
             generateButtonState.value = 'default'
             reset()
+            toast.success('A new collage was successfully created')
         },
         preserveScroll: true,
     });
