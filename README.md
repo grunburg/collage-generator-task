@@ -42,9 +42,8 @@ docker run --rm \
     composer install --ignore-platform-reqs
 ```
 
-4. Build application containers & bring them up.
+4. Bring up the application containers.
 ```bash
-./vendor/bin/sail build --no-cache
 ./vendor/bin/sail up -d
 ```
 
