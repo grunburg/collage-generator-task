@@ -2,6 +2,8 @@
 
 A collage generation test task for Biļešu Paradīze utilizing Laravel framework and [Intervention](https://image.intervention.io/v2) image handling library.
 
+![Preview](https://i.ibb.co/KwWSnyc/Screen-Recording-2023-07-03-at-23-30-36.gif)
+
 ## Technologies & Tools Used 🛠️
 
 #### App
