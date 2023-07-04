@@ -24,7 +24,7 @@ A collage generation test task for Biļešu Paradīze utilizing Laravel framewor
 ## Installation
 1. Go to your preferred project directory and clone this repository & navigate to it.
 ```bash
-git clone https://github.com/grunburg/collage-generator-task.git . && cd collage-generator-task
+git clone https://github.com/grunburg/collage-generator-task.git && cd collage-generator-task
 ```
 
 2. Copy .env.example file as .env 
@@ -42,8 +42,9 @@ docker run --rm \
     composer install --ignore-platform-reqs
 ```
 
-4. Bring up application containers.
+4. Build application containers & bring them up.
 ```bash
+./vendor/bin/sail build --no-cache
 ./vendor/bin/sail up -d
 ```
 
