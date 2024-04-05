@@ -1,6 +1,6 @@
 # Collage Generator
 
-A collage generation test task for Biļešu Paradīze utilizing Laravel framework and [Intervention](https://image.intervention.io/v2) image handling library.
+A collage generation utilizing Laravel framework and [Intervention](https://image.intervention.io/v2) image handling library.
 
 ![Preview](https://i.ibb.co/mqsLGtk/collage-generator-preview.gif)
 
